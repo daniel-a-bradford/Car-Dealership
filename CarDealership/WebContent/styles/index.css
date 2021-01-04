@@ -1,0 +1,97 @@
+body {
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+		'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+		'Helvetica Neue', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	background-color: silver;
+}
+
+footer {
+	height: 40px;
+}
+
+footer>p {
+	padding: 5px;
+}
+
+code {
+	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+		monospace;
+}
+
+.btn-width {
+	width: 180px;
+}
+
+.sign-up-container {
+	margin-top: 10%;
+	width: 80%;
+	margin-left: 10%;
+	margin-bottom: 10%;
+}
+
+.rt-pad {
+	margin-right: 10px;
+}
+
+.about-body {
+	padding-top: 60px;
+	background-image: url("../images/oak.jpg");
+	background-repeat: repeat-y;
+	text-align: center;
+	font-family: 'Lucida Handwriting', Arial, sans-serif;
+	font-weight: bold;
+	word-wrap: normal;
+	width: 100%;
+}
+
+.about-row {
+	min-height: 60px;
+}
+
+.about-column {
+	line-height: 30px;
+}
+
+.headline {
+	font-weight: bold;
+}
+
+.back-shade {
+	background-color: rgba(0,0,0,0.4) !important;
+}
+
+.input-valid {
+	color: green;
+	border: 2px solid green;
+}
+
+.input-error {
+	color: red;
+	border: 2px solid red;
+}
+
+.used-in-search {
+	font-weight: bold;
+	border: 2px solid #444444;
+}
+
+.centered {
+	text-align: center;
+}
+
+.dark-blue {
+	background-color: rgb(1, 1, 70) !important;
+}
+
+.text-gold {
+	color: gold;
+	border-color: gold;
+}
+
+.back-green {
+	background-color: #008000;
+	border-color: gold;
+}
