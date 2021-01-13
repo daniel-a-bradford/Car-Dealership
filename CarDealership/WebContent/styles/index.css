@@ -95,3 +95,12 @@ code {
 	background-color: #008000;
 	border-color: gold;
 }
+/* Attempting to keep the carousel from squishing and stretching pictures vertically. 
+.preserve-aspect {
+	width:auto !important;
+	height: 100% !important;
+}
+
+.center-block {
+	float: none !important;
+} */

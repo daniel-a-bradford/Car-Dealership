@@ -71,7 +71,7 @@
 			<c:choose>
 			<c:when test="${soldVehicles.size() > 0}">
 				<div class="table-responsive">
-					<table class="table table-striped table-dark">
+					<table class="table table-striped table-dark table-bordered">
 						<thead>
 							<tr>
 								<th scope="col">#</th>
@@ -96,13 +96,12 @@
 									<td>${vehicle.color} / ${integerFormat.format(vehicle.odometer)}</td>
 									<td>$${decimalFormat.format(vehicle.soldPrice)} / $${decimalFormat.format(vehicle.dealerPurchasePrice)}</td>
 									<td>${soldToCustomers[loop.index].name}</td>
-									<td>${soldToCustomers[loop.index].email} / ${soldToCustomers[loop.count].phone}</td>
+									<td>${soldToCustomers[loop.index].email} / ${soldToCustomers[loop.index].phone}</td>
 									<td>${soldToCustomers[loop.index].address.street1} 
-										${soldToCustomers[loop.index].address.street2} <br>
-										${soldToCustomers[loop.index].address.city}, ${soldToCustomers[loop.count].address.state}
-										${soldToCustomers[loop.index].address.zip}-${soldToCustomers[loop.count].address.zipPlus4}</td>
-									<td>${soldToCustomers[loop.index].pay.cardNum} / ${soldToCustomers[loop.count].pay.paypalEmail}</td>
-									<td></td>
+										${soldToCustomers[loop.index].address.street2}
+										${soldToCustomers[loop.index].address.city}, ${soldToCustomers[loop.index].address.state}
+										${soldToCustomers[loop.index].address.zip}-${soldToCustomers[loop.index].address.zipPlus4}</td>
+									<td>${soldToCustomers[loop.index].pay.cardNum} / ${soldToCustomers[loop.index].pay.paypalEmail}</td>
 								</tr>
 							</c:forEach>
 						</tbody>

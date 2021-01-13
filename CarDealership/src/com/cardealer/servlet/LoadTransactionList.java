@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,14 +38,16 @@ public class LoadTransactionList extends HttpServlet {
 		Employee currentEmployee = (Employee)session.getAttribute("employee");
 		// If there is no employee in the session, the employee is not registered or signed in, so redirect them to the home page.
 		if (currentEmployee == null) {
-			response.sendRedirect("index.jsp");
+			RequestDispatcher rs = request.getRequestDispatcher("index.jsp");
+			request.setAttribute("error", "User not authorized.");
+			rs.forward(request, response);
 			return;
 		}
 		Inventory inventory = new Inventory();
 		ArrayList<Vehicle> soldVehicleList = inventory.sortByDateSold(inventory.findSold(), false);
 		ArrayList<Customer> customerSoldToList = makeMatchingCustomerList(soldVehicleList);
-		session.setAttribute("soldVehicles", soldVehicleList);
-		session.setAttribute("soldToCustomers", customerSoldToList);
+		request.setAttribute("soldVehicles", soldVehicleList);
+		request.setAttribute("soldToCustomers", customerSoldToList);
 	}
 	
 	/** Create a matching ArrayList of customers where each element matches the soldVehicleList.

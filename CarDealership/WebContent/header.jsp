@@ -23,12 +23,12 @@
 				<c:choose>
 					<c:when test="${customer != null}">
 					<li class="nav-item"><a class="nav-link" href="customerAccount.jsp">
-						<i class="fa fa-fw fa-user-circle-o"></i>My Account<span class="sr-only">(current)</span>
+						<i class="fa fa-fw fa-user-circle-o"></i>${customer.firstName}'s Account<span class="sr-only">(current)</span>
 						</a></li>
 					</c:when>
 					<c:when test="${employee != null}">
 					<li class="nav-item"><a class="nav-link" href="employeeAccount.jsp">
-						<i class="fa fa-fw fa-user-circle-o"></i>My Account<span class="sr-only">(current)</span>
+						<i class="fa fa-fw fa-user-circle-o"></i>${employee.firstName}'s Account<span class="sr-only">(current)</span>
 						</a></li>
 					</c:when>
 					<c:otherwise>
@@ -51,7 +51,7 @@
 				</c:when>
 				<c:otherwise>
 					<form class="form-inline mt-2 mt-md-0" action="SignOut" method="post">
-						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign Out</button>
+						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign Out ${customer.name}${employee.name}</button>
 					</form>
 				</c:otherwise>
 			</c:choose>

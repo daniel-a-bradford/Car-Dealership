@@ -33,21 +33,8 @@ public class SignOut extends HttpServlet {
 		session.removeAttribute("customer");
 		session.removeAttribute("employee");
 		session.removeAttribute("vehiclesBought");
-		session.removeAttribute("custFields");
-		session.removeAttribute("empFields");
-		session.removeAttribute("signInFields");
-		response.sendRedirect("index.jsp");
+		session.removeAttribute("soldVehicle");
 		session.removeAttribute("chosenVehicle");
-		session.removeAttribute("existingCustomer");
-		session.removeAttribute("storedCard");
-		session.removeAttribute("goodBid");
-		session.removeAttribute("madeBid");
-		session.removeAttribute("priceReduction");
-		session.removeAttribute("totalPrice");
-		session.removeAttribute("soldVehicles");
-		session.removeAttribute("soldToCustomers");
-		session.removeAttribute("errorAdding");
-		session.removeAttribute("vehicleAdded");
-		session.removeAttribute("vehicleFields");
+		response.sendRedirect("index.jsp");
 	}
 }

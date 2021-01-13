@@ -95,66 +95,13 @@ public class Registration extends HttpServlet {
 		// If successful, add the customer to the session and send them to their account page.
 		if (newCustomer != null && goodOptional) {
 			session.setAttribute("customer", newCustomer);
-			// Remove user data from the session.
-			session.removeAttribute("custFields");
 			response.sendRedirect("customerAccount.jsp");
 			return;
 		}
 		// If the result of adding the customer is null, it is invalid, so send the user back to signup.
-		session.setAttribute("custFields", fields );
-		response.sendRedirect("signup.jsp");
+		request.setAttribute("custFields", fields );
+		RequestDispatcher rd = request.getRequestDispatcher("signup.jsp");
+		rd.forward(request, response);
 	}
-//		RequestDispatcher rs = request.getRequestDispatcher("signup.jsp");
-//		rs.forward(request, response);
-	// if (check.isValidString(request.getParameter("firstName"))) {
-	// newCustomer.setFirstName(request.getParameter("firstName"));
-	// } else {
-	// System.out.println("Invalid first name input.");
-	// }
-	// if (check.isValidString(request.getParameter("lastName"))) {
-	// newCustomer.setLastName(request.getParameter("lastName"));
-	// } else {
-	// System.out.println("Invalid last name input.");
-	// }
-	// if (check.isValidString(request.getParameter("password"))) {
-	// newCustomer.setPassword(request.getParameter("password"));
-	// } else {
-	// System.out.println("Invalid password input.");
-	// }
-	// if (check.isEmail(request.getParameter("email"))) {
-	// newCustomer.setEmail(request.getParameter("email"));
-	// } else {
-	// System.out.println("Invalid email input.");
-	// }
-	// if (check.isValidString(request.getParameter("password"))) {
-	// newCustomer.setPassword(request.getParameter("password"));
-	// } else {
-	// System.out.println("Invalid password input.");
-	// }
-	// if (check.isValidString(request.getParameter("street1"))) {
-	// newCustomer.getAddress().setStreet1(request.getParameter("street1"));
-	// } else {
-	// System.out.println("Invalid street input.");
-	// }
-	// if (check.isValidString(request.getParameter("street2"))) {
-	// newCustomer.getAddress().setStreet2(request.getParameter("street2"));
-	// } else {
-	// System.out.println("Invalid street input.");
-	// }
-	// if (check.isValidString(request.getParameter("city"))) {
-	// newCustomer.getAddress().setCity(request.getParameter("city"));
-	// } else {
-	// System.out.println("Invalid city input.");
-	// }
-	// if (check.isStateAbbreviation(request.getParameter("state"))) {
-	// newCustomer.getAddress().setState(request.getParameter("state"));
-	// } else {
-	// System.out.println("Invalid state input.");
-	// }
-	// if (check.isInt(request.getParameter("zip"), 5)) {
-	// newCustomer.getAddress().setZip(request.getParameter("zip"));
-	// } else {
-	// System.out.println("Invalid zip code input.");
-	// }
 
 }

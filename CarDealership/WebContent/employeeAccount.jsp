@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import="com.cardealer.entity.EmployeeInputFields"%>
 <%@ page import="com.cardealer.entity.Employee"%>
-<%@ page import="com.cardealer.entity.Address"%>
-<%@ page import="com.cardealer.entity.PaymentMethod"%>
 <%@ page import="com.cardealer.entity.Vehicle"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -63,13 +61,14 @@
 				<h2>Hello ${employee.name}!</h2>
 
 				<p class="lead">Please review or update your information below.</p>
+				<p class="${empFields.updateStatus[0]}">${empFields.updateStatus[2]}</p>
 			</div>
 
 			<hr class="mb-4">
 			<div class="row">
 				<div class="col-md-4 order-md-2">
 					<h4 class="mb-3">Set new password</h4>
-					<form class="needs-validation" action="UpdatePassword" method="post">
+					<form class="needs-validation" action="UpdateEmpPassword" method="post">
 						<div class="col-md-8">
 							<label for="password">Current password</label> 
 							<input type="password" name="oldPassword" class="form-control ${empFields.oldPassword[0]}" 
@@ -88,6 +87,7 @@
 								id="password2" placeholder="${empFields.newPassword[1]}" required>
 							<div class="invalid-feedback">Please a valid password.</div>
 						</div>
+						<p class="col-md-7 ml-3 ${custFields.oldPassword[0]} ${custFields.newPassword[0]}">${PasswordStatus}</p>
 						<button class="btn btn-primary col-md-7 ml-3" type="submit">Update password</button>
 					</form>
 				</div>

@@ -28,7 +28,10 @@ import com.cardealer.entity.Vehicle;
 			urlPatterns = { "/LoadHighlights" })
 public class LoadHighlights extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(true);
 

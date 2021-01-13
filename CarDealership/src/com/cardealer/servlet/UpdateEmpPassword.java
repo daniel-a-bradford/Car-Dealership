@@ -40,8 +40,13 @@ public class UpdateEmpPassword extends HttpServlet {
 				fields.flagNewPassword(currentEmployee.setPassword(request.getParameter("password")),
 						request.getParameter("password"));
 			} else {
-				String[] noMatch = { fields.getErrorStyle(), "They don't match.", "" };
-				fields.setEmail(noMatch);
+				String[] noMatch = { fields.getErrorStyle(), "These don't match.", "" };
+				fields.setNewPassword(noMatch);
+				request.setAttribute("PasswordStatus", "New passwords do not match.");
+				request.setAttribute("empFields", fields);
+				RequestDispatcher rs = request.getRequestDispatcher("employeeAccount.jsp");
+				rs.forward(request, response);
+				return;
 			}
 
 			// Attempts to add the updated employee to the employee list.
@@ -52,14 +57,16 @@ public class UpdateEmpPassword extends HttpServlet {
 				session.setAttribute("employee", currentEmployee);
 				EmployeeInputFields resetFields = new EmployeeInputFields();
 				session.setAttribute("empFields", resetFields);
+				request.setAttribute("PasswordStatus", "Update successful!");
 			}
 		} else {
 			fields.flagOldPassword(false, "");
+			request.setAttribute("PasswordStatus", "Incorrect current password.");
 		}
 		// If the result of updating the employee false, a field or fields are invalid, return to account with invalid fields
 		// highlighted.
-		session.setAttribute("empFields", fields);
-		response.sendRedirect("employeeAccount.jsp");
-		return;
+		request.setAttribute("empFields", fields);
+		RequestDispatcher rs = request.getRequestDispatcher("employeeAccount.jsp");
+		rs.forward(request, response);
 	}
 }

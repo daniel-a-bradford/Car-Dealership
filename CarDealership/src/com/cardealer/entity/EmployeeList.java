@@ -70,15 +70,14 @@ public class EmployeeList {
 		// If updated employee information is valid, add the new employee and update this.employees
 		if (updatedEmployee.isValidEmployee()) {
 			Employee existingEmployee = new Employee();
-			boolean emailUpdate = false;
+			// Check to see if the existing email already exists. If so, this is not an e-mail update, but another type.
+			boolean emailUpdate = true;
 			if (check.isValidString(existingEmail)) {
 				existingEmployee = findEmployee(existingEmail);
 				if (existingEmployee != null) {
-					emailUpdate = true;
+					emailUpdate = false;
 				}
-			} else {
-				existingEmployee = findEmployee(updatedEmployee.getEmail());
-			}
+			} 
 			// If a matching email was found, ensure the updated e-mail either does not exist in the list, or
 			// if it does exist, it matches the email address of the existing employee.
 			if (existingEmployee != null) {

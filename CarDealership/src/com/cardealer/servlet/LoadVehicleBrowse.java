@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,27 +23,33 @@ import com.cardealer.entity.VehicleSearchFields;
 		"/LoadVehicleBrowse" })
 public class LoadVehicleBrowse extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
+	// Redirects the parameters from the form in the page to the doGet which runs when the page loads. 
+	// NOTE: doPost will not run if included in the jsp page (e.g. <jsp:include page="/thisServlet"/> )
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response); 
+	}
+	
 	/** The method loads all vehicles for sale from the inventory. If searchFields is set in the session, the method uses the
 	 * values set there in order to narrow down the list based on what the user previously selected. */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(true);
+		System.out.println("LoadVehicleBrowse");
 		StringChecker check = new StringChecker();
 		Inventory thisInventory = new Inventory();
-		VehicleSearchFields searchFields = (VehicleSearchFields) session.getAttribute("searchFields");
+		VehicleSearchFields searchFields = (VehicleSearchFields) request.getAttribute("searchFields");
 		ArrayList<Vehicle> searchResults = new ArrayList<Vehicle>();
 		// If vin is a valid string, then the user clicked on a highlight picture, so only find the vehicle.
 		if (searchFields != null) {
 			if (check.isValidString(searchFields.getVin()[2])) {
 				searchResults.add(thisInventory.findVehicle(searchFields.getVin()[2]));
-				session.setAttribute("searchResults", searchResults);
-				response.sendRedirect("browse.jsp");
+				request.setAttribute("searchResults", searchResults);
 				return;
 			}
 		}
 		searchResults = thisInventory.findForSale();
 		// Skip the narrowing down sold vehicles if searchFields is not set. This is a new search.
 		if (searchFields == null) {
+			System.out.println("searchFields was null");
 			searchFields = new VehicleSearchFields();
 		} else {
 			/*
@@ -70,16 +78,17 @@ public class LoadVehicleBrowse extends HttpServlet {
 			if (check.isValidString(searchFields.getType()[2])) {
 				searchResults = thisInventory.findByType(searchResults, searchFields.getType()[2]);
 			}
+			if (check.isInt(searchFields.getYear()[2])) {
+				searchResults = thisInventory.findByYear(searchResults, check.getGoodInt());
+			}
 			if (check.isValidString(searchFields.getMake()[2])) {
 				searchResults = thisInventory.findByMake(searchResults, searchFields.getMake()[2]);
 			}
-
 			if (check.isValidString(searchFields.getModel()[2])) {
 				searchResults = thisInventory.findByModel(searchResults, searchFields.getModel()[2]);
 			}
 			if (check.isValidString(searchFields.getColor()[2])) {
 				searchResults = thisInventory.findByColor(searchResults, searchFields.getColor()[2]);
-				System.out.println(searchResults.size() + " found.");
 			}
 			if (check.isValidString(searchFields.getOdometerRange()[2])) {
 				// Split the odometer string to break out the values separated by a hyphen
@@ -94,7 +103,6 @@ public class LoadVehicleBrowse extends HttpServlet {
 						}
 					}
 				}
-
 			}
 			if (check.isValidString(searchFields.getTagline()[2])) {
 				searchResults = thisInventory.findByTagline(searchResults, searchFields.getTagline()[2]);
@@ -141,12 +149,12 @@ public class LoadVehicleBrowse extends HttpServlet {
 		for (int temp = 0; temp < highestOdometer; temp += highestOdometer / 10) {
 			odometerRangeList.add(temp + "-" + (temp + (highestOdometer / 10)));
 		}
-		session.setAttribute("typeList", typeList);
-		session.setAttribute("makeList", makeList);
-		session.setAttribute("modelList", modelList);
-		session.setAttribute("yearList", yearList);
-		session.setAttribute("colorList", colorList);
-		session.setAttribute("odometerRangeList", odometerRangeList);
-		session.setAttribute("searchResults", searchResults);
+		request.setAttribute("typeList", typeList);
+		request.setAttribute("makeList", makeList);
+		request.setAttribute("modelList", modelList);
+		request.setAttribute("yearList", yearList);
+		request.setAttribute("colorList", colorList);
+		request.setAttribute("odometerRangeList", odometerRangeList);
+		request.setAttribute("searchResults", searchResults);
 	}
 }

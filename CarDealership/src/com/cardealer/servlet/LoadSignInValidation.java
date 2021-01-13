@@ -19,6 +19,12 @@ public class LoadSignInValidation extends HttpServlet {
 	/** @see HttpServlet#HttpServlet() */
 	public LoadSignInValidation() {
 	}
+	
+	// Redirects the parameters from the form in the page to the doGet which runs when the page loads. 
+	// NOTE: doPost will not run if included in the jsp page (e.g. <jsp:include page="/thisServlet"/> )
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response); 
+	}
 
 	/** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

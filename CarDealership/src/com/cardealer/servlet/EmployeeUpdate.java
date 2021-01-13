@@ -2,6 +2,7 @@ package com.cardealer.servlet;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,6 +29,10 @@ public class EmployeeUpdate extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		EmployeeInputFields fields = new EmployeeInputFields();
 		Employee sessionEmployee = (Employee)session.getAttribute("employee");
+		if (sessionEmployee == null) {
+			response.sendRedirect("index.jsp");
+			return;
+		}
 		fields.flagFirstName(sessionEmployee.setFirstName(request.getParameter("firstName")), sessionEmployee.getFirstName());
 		fields.flagLastName(sessionEmployee.setLastName(request.getParameter("lastName")), sessionEmployee.getLastName());
 		String oldEmail = sessionEmployee.getEmail();
@@ -48,13 +53,14 @@ public class EmployeeUpdate extends HttpServlet {
 		// If the update is successful, add the updated employee to the session and send them to their account page.
 		if (updateList.updateEmployee(sessionEmployee, oldEmail)) {
 			session.setAttribute("employee", sessionEmployee);
-			EmployeeInputFields resetFields = new EmployeeInputFields();
-			session.setAttribute("empFields", resetFields);
+			fields.flagUpdateStatus(true);
+			request.setAttribute("empFields", fields );
 		} else {
-
 			// If the result of updating the employee false, a field or fields are invalid, return to account with invalid fields highlighted.
-			session.setAttribute("empFields", fields );
+			fields.flagUpdateStatus(false);
+			request.setAttribute("empFields", fields );
 		}
-		response.sendRedirect("employeeAccount.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("employeeAccount.jsp");
+		rd.forward(request, response);
 	}
 }

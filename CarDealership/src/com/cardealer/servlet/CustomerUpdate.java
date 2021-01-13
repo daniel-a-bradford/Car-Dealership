@@ -29,11 +29,15 @@ public class CustomerUpdate extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		CustomerInputFields fields = new CustomerInputFields();
 		Customer sessionCustomer = (Customer)session.getAttribute("customer");
+		if (sessionCustomer == null) {
+			response.sendRedirect("index.jsp");
+			return;
+		}
 		fields.flagFirstName(sessionCustomer.setFirstName(request.getParameter("firstName")), sessionCustomer.getFirstName());
 		fields.flagLastName(sessionCustomer.setLastName(request.getParameter("lastName")), sessionCustomer.getLastName());
 		fields.flagEmail(sessionCustomer.setEmail(request.getParameter("email")), sessionCustomer.getEmail());
-		fields.flagPhone(sessionCustomer.setPhone(request.getParameter("phone")), request.getParameter("phone"));
-		fields.flagStreet1(sessionCustomer.getAddress().setStreet1(request.getParameter("street1")),
+		fields.flagPhone(sessionCustomer.setPhone(request.getParameter("phone")), String.valueOf(sessionCustomer.getPhone()));
+		fields.flagStreet1(sessionCustomer.getAddress().setStreet1(sessionCustomer.getAddress().getStreet1()),
 				sessionCustomer.getAddress().getStreet1());
 		// Street2 field is optional.
 		sessionCustomer.getAddress().setStreet2(request.getParameter("street2"));
@@ -43,7 +47,7 @@ public class CustomerUpdate extends HttpServlet {
 		fields.flagState(sessionCustomer.getAddress().setState(request.getParameter("state")),
 				sessionCustomer.getAddress().getState());
 		fields.flagZip(sessionCustomer.getAddress().setZip(request.getParameter("zip")),
-				request.getParameter("zip"));
+				String.valueOf(sessionCustomer.getAddress().getZip()));
 		// The following fields are optional for registration. However, if the input is changed from default, it must be valid.
 		boolean goodOptional = true;
 		if (!request.getParameter("cardName").isBlank()) {
@@ -101,15 +105,15 @@ public class CustomerUpdate extends HttpServlet {
 		// If the update is successful, add the updated customer to the session and send them to their account page.
 		if (updateList.updateCustomer(sessionCustomer) && goodOptional) {
 			session.setAttribute("customer", sessionCustomer);
-			CustomerInputFields resetFields = new CustomerInputFields();
-			session.setAttribute("custFields", resetFields);
+			fields.flagUpdateStatus(true);
+			request.setAttribute("custFields", fields);
 		} else {
-
 			// If the result of updating the customer false, a field or fields are invalid, return to account with invalid fields highlighted.
-			session.setAttribute("custFields", fields );
+			fields.flagUpdateStatus(false);
+			request.setAttribute("custFields", fields );
 		}
 		
-		RequestDispatcher rs = request.getRequestDispatcher("customerAccount.jsp");
-		rs.forward(request, response);
+		RequestDispatcher rd = request.getRequestDispatcher("customerAccount.jsp");
+		rd.forward(request, response);
 	}
 }

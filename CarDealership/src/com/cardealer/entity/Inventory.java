@@ -441,7 +441,8 @@ public class Inventory {
 		}
 		ArrayList<Vehicle> results = new ArrayList<Vehicle>();
 		for (Vehicle tempVehicle : this.inventory) {
-			if (tempVehicle.getOdometer() >= fromThis && tempVehicle.getOdometer() <= toThis) {
+			if (tempVehicle.getYear() >= fromThis 
+					&& tempVehicle.getYear() <= toThis) {
 				results.add(tempVehicle);
 			}
 		}
@@ -478,7 +479,8 @@ public class Inventory {
 		}
 		ArrayList<Vehicle> results = new ArrayList<Vehicle>();
 		for (Vehicle tempVehicle : inputArrayList) {
-			if (tempVehicle.getOdometer() >= fromThis && tempVehicle.getOdometer() <= toThis) {
+			if (tempVehicle.getYear() >= fromThis 
+					&& tempVehicle.getYear() <= toThis) {
 				results.add(tempVehicle);
 			}
 		}
@@ -561,7 +563,8 @@ public class Inventory {
 		}
 		ArrayList<Vehicle> results = new ArrayList<Vehicle>();
 		for (Vehicle tempVehicle : this.inventory) {
-			if (tempVehicle.getOdometer() >= fromThis && tempVehicle.getOdometer() <= toThis) {
+			if (tempVehicle.getOdometer() >= fromThis 
+					&& tempVehicle.getOdometer() <= toThis) {
 				results.add(tempVehicle);
 			}
 		}
@@ -598,7 +601,8 @@ public class Inventory {
 		}
 		ArrayList<Vehicle> results = new ArrayList<Vehicle>();
 		for (Vehicle tempVehicle : inputArrayList) {
-			if (tempVehicle.getOdometer() >= fromThis && tempVehicle.getOdometer() <= toThis) {
+			if (tempVehicle.getOdometer() >= fromThis 
+					&& tempVehicle.getOdometer() <= toThis) {
 				results.add(tempVehicle);
 			}
 		}
@@ -621,7 +625,7 @@ public class Inventory {
 		ArrayList<Vehicle> results = new ArrayList<Vehicle>();
 		String tempString = "";
 		for (Vehicle tempVehicle : this.inventory) {
-			tempString = tempVehicle.getType().toLowerCase();
+			tempString = tempVehicle.getTagline().toLowerCase();
 			if (tempString.contains(tagline)) {
 				results.add(tempVehicle);
 			}
@@ -643,10 +647,11 @@ public class Inventory {
 			return new ArrayList<Vehicle>();
 		}
 		tagline = tagline.trim().toLowerCase();
+		System.out.println();
 		ArrayList<Vehicle> results = new ArrayList<Vehicle>();
 		String tempString = "";
 		for (Vehicle tempVehicle : inputArrayList) {
-			tempString = tempVehicle.getType().toLowerCase();
+			tempString = tempVehicle.getTagline().toLowerCase();
 			if (tempString.contains(tagline)) {
 				results.add(tempVehicle);
 			}
@@ -670,7 +675,7 @@ public class Inventory {
 		ArrayList<Vehicle> results = new ArrayList<Vehicle>();
 		String tempString = "";
 		for (Vehicle tempVehicle : this.inventory) {
-			tempString = tempVehicle.getType().toLowerCase();
+			tempString = tempVehicle.getDescription().toLowerCase();
 			if (tempString.contains(description)) {
 				results.add(tempVehicle);
 			}
@@ -695,7 +700,7 @@ public class Inventory {
 		ArrayList<Vehicle> results = new ArrayList<Vehicle>();
 		String tempString = "";
 		for (Vehicle tempVehicle : inputArrayList) {
-			tempString = tempVehicle.getType().toLowerCase();
+			tempString = tempVehicle.getDescription().toLowerCase();
 			if (tempString.contains(description)) {
 				results.add(tempVehicle);
 			}
@@ -882,8 +887,8 @@ public class Inventory {
 		}
 		ArrayList<Vehicle> results = new ArrayList<Vehicle>();
 		for (Vehicle tempVehicle : this.inventory) {
-			if (tempVehicle.getListPrice().compareTo(fromThis) >= 0
-					&& tempVehicle.getListPrice().compareTo(toThis) <= 0) {
+			if (tempVehicle.getRecommendedPrice().compareTo(fromThis) >= 0
+					&& tempVehicle.getRecommendedPrice().compareTo(toThis) <= 0) {
 				results.add(tempVehicle);
 			}
 		}
@@ -921,8 +926,8 @@ public class Inventory {
 		}
 		ArrayList<Vehicle> results = new ArrayList<Vehicle>();
 		for (Vehicle tempVehicle : inputArrayList) {
-			if (tempVehicle.getListPrice().compareTo(fromThis) >= 0
-					&& tempVehicle.getListPrice().compareTo(toThis) <= 0) {
+			if (tempVehicle.getRecommendedPrice().compareTo(fromThis) >= 0
+					&& tempVehicle.getRecommendedPrice().compareTo(toThis) <= 0) {
 				results.add(tempVehicle);
 			}
 		}

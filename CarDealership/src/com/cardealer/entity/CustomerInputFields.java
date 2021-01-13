@@ -27,6 +27,7 @@ public class CustomerInputFields {
 	private String[] expiration = { "", "YYYY-MM-DD", "" };
 	private String[] cvv = { "", "000", "" };
 	private String[] paypalEmail = { "", "Your PayPal email", "" };
+	private String[] updateStatus = { "", "", "" };
 
 	public void flagFirstName(boolean valid, String input) {
 		if (valid) {
@@ -252,6 +253,16 @@ public class CustomerInputFields {
 			this.paypalEmail[1] = "Please enter your PayPal email.";
 		}
 	}
+	
+	public void flagUpdateStatus(boolean valid) {
+		if (valid) {
+			this.updateStatus[0] = validStyle;
+			this.updateStatus[2] = "Update Successful";
+		} else {
+			this.updateStatus[0] = errorStyle;
+			this.updateStatus[2] = "Could not update, please fix highlighted fields.";
+		}
+	}
 
 	public String getValidStyle() {
 		return this.validStyle;
@@ -427,6 +438,14 @@ public class CustomerInputFields {
 
 	public void setPaypalEmail(String[] paypalEmail) {
 		this.paypalEmail = paypalEmail;
+	}
+
+	public String[] getUpdateStatus() {
+		return this.updateStatus;
+	}
+
+	public void setUpdateStatus(String[] updateStatus) {
+		this.updateStatus = updateStatus;
 	}
 	
 }

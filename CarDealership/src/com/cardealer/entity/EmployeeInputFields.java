@@ -13,6 +13,7 @@ public class EmployeeInputFields {
 	private String[] email = { "", "Your email address", "" };
 	private String[] newPassword = { "", "Set a password", "" };
 	private String[] oldPassword = { "", "Enter password", "" };
+	private String[] updateStatus = { "", "", "" };
 
 	public void flagFirstName(boolean valid, String input) {
 		if (valid) {
@@ -83,6 +84,16 @@ public class EmployeeInputFields {
 			this.oldPassword[1] = "Incorrect password.";
 		}
 	}
+	
+	public void flagUpdateStatus(boolean valid) {
+		if (valid) {
+			this.updateStatus[0] = validStyle;
+			this.updateStatus[2] = "Update Successful";
+		} else {
+			this.updateStatus[0] = errorStyle;
+			this.updateStatus[2] = "Could not update, please fix highlighted fields.";
+		}
+	}
 
 	public String getValidStyle() {
 		return this.validStyle;
@@ -146,5 +157,13 @@ public class EmployeeInputFields {
 
 	public void setOldPassword(String[] password) {
 		this.oldPassword = password;
+	}
+	
+	public String[] getUpdateStatus() {
+		return this.updateStatus;
+	}
+
+	public void setUpdateStatus(String[] updateStatus) {
+		this.updateStatus = updateStatus;
 	}
 }

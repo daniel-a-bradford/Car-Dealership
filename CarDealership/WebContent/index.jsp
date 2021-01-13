@@ -53,7 +53,7 @@
 <jsp:include page="header.jsp"/>
 
 	<main role="main" id="topOfPage">
-	
+		<h3 class="input-error">${error}</h3>
 		<div id="myCarousel" class="carousel slide" data-ride="carousel">
 			<ol class="carousel-indicators">
 				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -62,11 +62,6 @@
 			</ol>
 			<div class="carousel-inner">
 				<div class="carousel-item active">
-					<svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
-						preserveAspectRatio="xMidYMid slice" focusable="false" role="img"
-					>
-						<rect width="100%" height="100%" fill="#777" /></svg>
-
 					<img src="images/fastcar.jpg" class="d-block w-100" alt="Going fast">
 					<div class="carousel-caption text-left">
 						<h1>The Cars R Us Advantage</h1>
@@ -79,10 +74,6 @@
 
 				</div>
 				<div class="carousel-item">
-					<svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
-						preserveAspectRatio="xMidYMid slice" focusable="false" role="img"
-					>
-						<rect width="100%" height="100%" fill="#777" /></svg>
 					<img src="images/manycars.jpg" class="d-block w-100" alt="Large selection">
 					<div class="carousel-caption">
 						<h1>Amazing Selection</h1>
@@ -95,11 +86,6 @@
 
 				</div>
 				<div class="carousel-item">
-
-					<svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"
-						preserveAspectRatio="xMidYMid slice" focusable="false" role="img"
-					>
-						<rect width="100%" height="100%" fill="#777" /></svg>
 					<img src="images/keys.jpg" class="d-block w-100" alt="Got your back">
 					<div class="carousel-caption text-right">
 						<h1>We're Here For You</h1>

@@ -34,7 +34,7 @@ public class CheckBid extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(true);
 		StringChecker check = new StringChecker(true);
-		session.setAttribute("bidMade", true);
+		request.setAttribute("bidMade", true);
 		Vehicle bidVehicle = (Vehicle)session.getAttribute("chosenVehicle");
 		if (bidVehicle == null) {
 			response.sendRedirect("browse.jsp");
@@ -44,16 +44,17 @@ public class CheckBid extends HttpServlet {
 			BigDecimal bidPrice = check.getGoodBigDecimal();
 			if (bidPrice.compareTo(bidVehicle.getMinBidPrice()) > 0
 				&& bidPrice.compareTo(bidVehicle.getListPrice()) < 0) {
-					session.setAttribute("goodBid", true);
+					request.setAttribute("goodBid", true);
 					String discount = "-$" + bidVehicle.getListPrice().subtract(bidPrice).toPlainString();
-					session.setAttribute("priceReduction", discount);
-					session.setAttribute("totalPrice", bidPrice);
+					request.setAttribute("priceReduction", discount);
+					request.setAttribute("totalPrice", bidPrice);
 				} else {
-					session.setAttribute("goodBid", false);
+					request.setAttribute("goodBid", false);
 				}
 		} else {
-			session.setAttribute("goodBid", false);
+			request.setAttribute("goodBid", false);
 		}
-		response.sendRedirect("checkout.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("checkout.jsp");
+		rd.forward(request, response);
 	}
 }

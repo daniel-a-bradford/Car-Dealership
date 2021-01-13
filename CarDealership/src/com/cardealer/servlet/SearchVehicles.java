@@ -39,11 +39,11 @@ public class SearchVehicles extends HttpServlet {
 		StringChecker check = new StringChecker();
 		Inventory thisInventory = new Inventory();
 		@SuppressWarnings("unchecked")
-		ArrayList<Vehicle> searchResults = (ArrayList<Vehicle>)session.getAttribute("searchResults");
+		ArrayList<Vehicle> searchResults = (ArrayList<Vehicle>)request.getAttribute("searchResults");
 		if (searchResults == null) {
 			searchResults = thisInventory.findForSale();
 		}
-		VehicleSearchFields searchFields = (VehicleSearchFields) session.getAttribute("searchFields");
+		VehicleSearchFields searchFields = (VehicleSearchFields) request.getAttribute("searchFields");
 		// Skip the narrowing down sold vehicles if searchFields is not set. This is a new search.
 		if (searchFields == null) {
 			searchFields = new VehicleSearchFields();
@@ -77,6 +77,11 @@ public class SearchVehicles extends HttpServlet {
 			searchFields.flagType(true, request.getParameter("type"));
 		}  else {
 			searchFields.flagType(false, "");
+		}
+		if (check.isInt(request.getParameter("year"))) {
+			searchFields.flagYear(true, request.getParameter("year"));
+		}  else {
+			searchFields.flagYear(false, "");
 		}
 		if (check.isValidString(request.getParameter("make"))) {
 			searchFields.flagMake(true, request.getParameter("make"));
@@ -115,8 +120,9 @@ public class SearchVehicles extends HttpServlet {
 		} else {
 			searchFields.flagDescription(false, "");
 		}
-		session.setAttribute("searchFields", searchFields);
-		session.setAttribute("searchResults", searchResults);
-		response.sendRedirect("browse.jsp");
+		request.setAttribute("searchFields", searchFields);
+		RequestDispatcher rd = request.getRequestDispatcher("browse.jsp");
+		rd.include(request, response);
+//		response.sendRedirect("browse.jsp");
 	}
 }

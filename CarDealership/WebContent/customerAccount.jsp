@@ -109,7 +109,7 @@
 			<div class="row">
 				<div class="col-md-4 order-md-2">
 					<h4 class="mb-3">Set new password</h4>
-					<form class="needs-validation" action="UpdatePassword" method="post">
+					<form class="needs-validation" action="UpdateCustomerPassword" method="post">
 						<div class="col-md-8">
 							<label for="password">Current password</label> 
 							<input type="password" name="oldPassword" class="form-control ${custFields.oldPassword[0]}" 
@@ -128,11 +128,15 @@
 								id="password2" placeholder="${custFields.newPassword[1]}" required>
 							<div class="invalid-feedback">Please a valid password.</div>
 						</div>
+						<p class="col-md-7 ml-3 ${custFields.oldPassword[0]} ${custFields.newPassword[0]}">${PasswordStatus}</p>
 						<button class="btn btn-primary col-md-7 ml-3" type="submit">Update password</button>
 					</form>
 				</div>
 				<div class="col-md-8 order-md-1">
+					<span>
 					<h4 class="mb-3">Billing name and address</h4>
+					<h4 class="${custFields.updateStatus[0]}">${custFields.updateStatus[2]}</h4>
+					</span>
 					<form class="needs-validation" action="CustomerUpdate" method="post">
 						<div class="row">
 							<div class="col-md-6 mb-3">

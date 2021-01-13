@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,12 +37,13 @@ public class GoToHighlight extends HttpServlet {
 		}
 		ArrayList<Vehicle> searchResults = new ArrayList<Vehicle>();
 		// If vin is a valid string, then the user clicked on a highlight picture, so only find the vehicle.
-		System.out.println("The vin passed is: " + request.getParameter("vin"));
 		if (check.isValidString(request.getParameter("vin"))) {
 			Inventory thisInventory = new Inventory();
 			searchFields.flagVin(true, request.getParameter("vin"));
-			session.setAttribute("searchFields", searchFields);
-			response.sendRedirect("browse.jsp");
+			request.setAttribute("searchFields", searchFields);
+			RequestDispatcher rd = request.getRequestDispatcher("browse.jsp");
+			rd.forward(request, response);
+//			response.sendRedirect("browse.jsp"); 
 			return;
 		}
 	}

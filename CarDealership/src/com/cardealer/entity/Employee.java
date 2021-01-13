@@ -57,8 +57,10 @@ public class Employee {
 
 	public boolean setFirstName(String firstName) {
 		if (check.isValidString(firstName)) {
-			this.firstName = firstName;
-			if (this.name.isEmpty() || this.name.split(" ").length == 1) {
+			this.firstName = firstName.trim();
+			if (this.middleName.trim().length() == 0) {
+				this.name = this.firstName + " " + this.lastName;
+			} else {
 				this.name = this.firstName + " " + this.middleName + " " + this.lastName;
 			}
 			return true;
@@ -73,8 +75,10 @@ public class Employee {
 	
 	public boolean setLastName(String lastName) {
 		if (check.isValidString(lastName)) {
-			this.lastName = lastName;
-			if (this.name.isEmpty() || this.name.split(" ").length == 1) {
+			this.lastName = lastName.trim();
+			if (this.middleName.trim().length() == 0) {
+				this.name = this.firstName + " " + this.lastName;
+			} else {
 				this.name = this.firstName + " " + this.middleName + " " + this.lastName;
 			}
 			return true;
@@ -89,10 +93,8 @@ public class Employee {
 	
 	public boolean setMiddleName(String middleName) {
 		if (check.isValidString(middleName)) {
-			this.middleName = middleName;
-			if (this.name.isEmpty() || this.name.split(" ").length < 3) {
-				this.name = this.firstName + " " + this.middleName + " " + this.lastName;
-			}
+			this.middleName = middleName.trim();
+			this.name = this.firstName + " " + this.middleName + " " + this.lastName;
 			return true;
 		}
 		this.middleName = "";

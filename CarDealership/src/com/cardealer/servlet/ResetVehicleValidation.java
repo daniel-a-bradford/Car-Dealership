@@ -23,9 +23,9 @@ public class ResetVehicleValidation extends HttpServlet {
 	/** @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response) */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(true);
-		session.removeAttribute("vehicleAdded");
-		session.removeAttribute("errorAdding");
-		session.setAttribute("vehicleFields", new VehicleInputFields());
+		request.removeAttribute("vehicleAdded");
+		request.removeAttribute("errorAdding");
+		request.setAttribute("vehicleFields", new VehicleInputFields());
 		
 	}
 

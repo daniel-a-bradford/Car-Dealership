@@ -26,15 +26,12 @@ import com.cardealer.entity.Vehicle;
 /**
  * Servlet implementation class Startup
  */
-@WebServlet(description = "Removes the searchResults session attribute and redirects back to the browse page, where they are loaded fresh.", 
+@WebServlet(description = "Redirects back to the browse page, search fields and results are loaded fresh.", 
 			urlPatterns = { "/ResetSearch" })
 public class ResetSearch extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(true);
-		session.removeAttribute("searchFields");
-		session.removeAttribute("searchResults");
 		response.sendRedirect("browse.jsp");
 	}
 }

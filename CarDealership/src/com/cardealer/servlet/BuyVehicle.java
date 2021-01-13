@@ -158,7 +158,7 @@ public class BuyVehicle extends HttpServlet {
 			session.setAttribute("customer", currentCustomer);
 			chosenVehicle.setDateSold(LocalDate.now());
 			chosenVehicle.setSoldToCustomer(currentCustomer.getCustomerID());
-			BigDecimal bidPrice = (BigDecimal) session.getAttribute("totalPrice");
+			BigDecimal bidPrice = (BigDecimal) request.getAttribute("totalPrice");
 			// In case the attribute was changed, ensure it is not null, is greater than min bid price and less than list price.
 			if (bidPrice != null && bidPrice.compareTo(chosenVehicle.getMinBidPrice()) > 0
 					&& bidPrice.compareTo(chosenVehicle.getListPrice()) < 0) {
@@ -173,15 +173,7 @@ public class BuyVehicle extends HttpServlet {
 			}
 			session.setAttribute("soldVehicle", chosenVehicle);
 			// Cleanup the session
-			session.removeAttribute("custFields");
 			session.removeAttribute("chosenVehicle");
-			session.removeAttribute("existingCustomer");
-			session.removeAttribute("storedCard");
-			session.removeAttribute("goodBid");
-			session.removeAttribute("madeBid");
-			session.removeAttribute("priceReduction");
-			session.removeAttribute("totalPrice");
-			session.removeAttribute("searchResults");
 			response.sendRedirect("congrats.jsp");
 		} else {
 			// If the customer and pay information were not correct and stored, return to account with invalid fields highlighted.

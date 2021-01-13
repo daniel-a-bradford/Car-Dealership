@@ -30,12 +30,15 @@ public class SignIn extends HttpServlet {
 
 	/** @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response) */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Determine the referring page
-		String referringPage = request.getHeader("Referer");
+		// Determine the referring page, includes http:\\localhost:8080\CarDealership\ then page name.
+		// This works for a redirect, but not RequestDispatcher since it only deals with local pages.
+		String referringAbsPage = request.getHeader("Referer");
+		System.out.println("Absolute referring page: " + referringAbsPage);
 		boolean returnToReferring = true;
-		if (referringPage == null || referringPage.isBlank()) {
+		// If it is blank or null, just go to the index.jsp.
+		if (referringAbsPage == null || referringAbsPage.isBlank()) {
 			returnToReferring = false;
-		}
+		} 
 		HttpSession session = request.getSession(true);
 		SignInInputFields fields = new SignInInputFields();
 		String email = request.getParameter("email");
@@ -48,11 +51,12 @@ public class SignIn extends HttpServlet {
 				Employee foundEmployee = empList.findEmployee(email);
 				if (result.size() > 0) {
 					Customer foundCustomer = result.get(0);
+					
 					if (foundCustomer.isCorrectPassword(password)) {
 						session.setAttribute("customer", foundCustomer);
 						session.setAttribute("signInFields", new SignInInputFields());
 						if (returnToReferring) {
-							response.sendRedirect(referringPage);
+							response.sendRedirect(referringAbsPage);
 						} else {
 							response.sendRedirect("customerAccount.jsp");
 						}
@@ -86,7 +90,7 @@ public class SignIn extends HttpServlet {
 		}
 		session.setAttribute("signInFields", fields);
 		if (returnToReferring) {
-			response.sendRedirect(referringPage);
+			response.sendRedirect(referringAbsPage);
 		} else {
 			response.sendRedirect("index.jsp");
 		}

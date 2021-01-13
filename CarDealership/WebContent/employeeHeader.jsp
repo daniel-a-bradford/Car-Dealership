@@ -6,7 +6,7 @@
 </head>
 
 <nav class="navbar navbar-expand-md navbar-dark pt-5 bg-dark" style="dark-blue">
-	<a class="navbar-brand" href="/index.jsp">Employee Account</a>
+	<a class="navbar-brand" href="employeeAccount.jsp">Employee Account</a>
 	<div class="collapse navbar-collapse" id="navbarCollapse">
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item"><a class="nav-link" href="addVehicle.jsp">Add Vehicle<span class="sr-only">(current)</span>
